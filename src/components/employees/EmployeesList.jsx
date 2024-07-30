@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Table } from "reactstrap";
-import { getEmployees } from "../data/EmployeesData";
 import { Link } from "react-router-dom";
+import { getEmployees } from "../../data/EmployeesData";
 
 export default function EmployeesList() {
   const [employees, setEmployees] = useState([]);
