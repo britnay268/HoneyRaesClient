@@ -1,11 +1,11 @@
 import { Link, Outlet } from "react-router-dom";
 import { Button } from "reactstrap";
 
-export default function ServiceTickets() {
+export default function Employees() {
   return (
     <>
-      <h2>Service Tickets</h2>
-      <Link to="/tickets/create">Add</Link>
+      <h2>Employees</h2>
+      <Link to="/employee/create">Add</Link>
       <Outlet />
     </>
   );
