@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Table } from "reactstrap";
-
+import { getEmployee } from "../../data/EmployeesData";
 
 export default function EmployeeDetails() {
   const { id } = useParams();
 
-  const [employees, setEmployees] = useState(null);
+  const [employee, setEmployee] = useState(null);
 
   useEffect(() => {
-    getEmployee(id).then(setEmployees);
+    getEmployee(id).then(setEmployee);
   }, []);
 
   if (!employee) {
@@ -29,7 +29,7 @@ export default function EmployeeDetails() {
         </tr>
         <tr>
           <th scope="row">Service Tickets</th>
-          <td>{null}</td>
+          <td>{employee.serviceTickets.length}</td>
         </tr>
       </tbody>
     </Table>
