@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Table } from "reactstrap";
-import getEmployees from "../../data/EmployeesData";
+import { getEmployees } from "../data/EmployeesData";
 import { Link } from "react-router-dom";
 
 export default function EmployeesList() {
@@ -24,9 +24,8 @@ export default function EmployeesList() {
         {employees.map((e) => (
           <tr key={`ticket-${e.id}`}>
             <th scope="row">{e.id}</th>
-            <td>{e.description}</td>
-            <td>{e.emergency ? "yes" : "no"}</td>
-            <td>{e.dateCompleted?.split("T")[0] || "Incomplete"}</td>
+            <td>{e.name}</td>
+            <td>{e.speciality}</td>
             <td>
               <Link to={`${e.id}`}>Details</Link>
             </td>
