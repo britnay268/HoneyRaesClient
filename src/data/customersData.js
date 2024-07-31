@@ -10,7 +10,7 @@ const getCustomers = () => new Promise((resolve, reject) => {
   .catch(reject);
 });
 
-const getCustomer = (id) => new Promise((resolve, reject) => {
+const getCustomerById = (id) => new Promise((resolve, reject) => {
   fetch(`/api/customers/${id}`, {
     method: 'GET',
     headers: {
@@ -22,4 +22,4 @@ const getCustomer = (id) => new Promise((resolve, reject) => {
   .catch(reject);
 });
 
-export {getCustomers, getCustomer};
+export {getCustomers, getCustomerById};
