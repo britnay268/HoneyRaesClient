@@ -37,7 +37,6 @@ export default function CustomerDetails() {
             <strong>Ticket ID:</strong> {st.id}<br />  
             <strong>Description:</strong> {st.description} <br /> 
             <strong>Emergency:</strong> {st.emergency ? "Yes" : "No"}
-            <hr />
           </p>
       ))}
     </>
