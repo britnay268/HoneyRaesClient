@@ -1,10 +1,18 @@
 import { useEffect, useState } from "react";
 import { Table } from "reactstrap";
-import { getServiceTickets } from "../../data/serviceTicketsData";
+import { deleteServiceTicket, getServiceTickets } from "../../data/serviceTicketsData";
 import { Link } from "react-router-dom";
 
 export default function TicketsList() {
   const [tickets, setTickets] = useState([]);
+
+  const deleteTicket = (id) => {
+    if (window.confirm(`Sure you want to delete ${id}?`)) {
+      deleteServiceTicket(id);
+      // This was a fast way to dynamically update the list when a ticket is deleted by checking to see if the id exists
+      setTickets(tickets.filter((ticket) => ticket.id !== id));
+    }
+  };
 
   useEffect(() => {
     getServiceTickets().then(setTickets);
@@ -30,6 +38,9 @@ export default function TicketsList() {
             <td>{t.dateCompleted?.split("T")[0] || "Incomplete"}</td>
             <td>
               <Link to={`${t.id}`}>Details</Link>
+            </td>
+            <td>
+            <Link onClick={() => deleteTicket(t.id)}>Delete</Link>
             </td>
           </tr>
         ))}
