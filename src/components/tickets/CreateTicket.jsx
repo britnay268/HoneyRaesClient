@@ -38,7 +38,7 @@ export default function CreateTicket() {
     e.preventDefault();
 
     const payload = { ...formInput };
-    createServiceTicket(payload).then(() => {navigate('/tickets')});x
+    createServiceTicket(payload).then(() => {navigate('/tickets')});
   };
 
   const optionsCustomers = customers.map((c) => (
