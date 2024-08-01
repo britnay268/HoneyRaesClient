@@ -1,18 +1,25 @@
 import { useEffect, useState } from "react";
-import { Form, FormGroup, Input, Label } from "reactstrap";
+import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 import { getCustomers } from "../../data/customersData";
 import { getEmployees } from "../../data/EmployeesData";
+import { createServiceTicket } from "../../data/serviceTicketsData";
+import { useNavigate } from "react-router-dom";
 
 
 const initialState = {
-  customerId: '',
+  employeeId: 0,
+  customerId: 0,
   description: '',
   emergency: false,
+  dateCompleted: null,
 }
+
 export default function CreateTicket() {
   const [formInput, setFormInput] = useState(initialState);
   const [customers, setCustomers] = useState([]);
   const [employees, setEmployees] = useState([]);
+  const navigate = useNavigate();
+  
 
   useEffect(() => {
     getCustomers().then(setCustomers);
@@ -27,6 +34,13 @@ export default function CreateTicket() {
     }));
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const payload = { ...formInput };
+    createServiceTicket(payload).then(() => {navigate('/tickets')});x
+  };
+
   const optionsCustomers = customers.map((c) => (
     <option key={c.id} value={c.id}>{c.name}</option>
   ));
@@ -36,8 +50,8 @@ export default function CreateTicket() {
   ));
   return (
     <>
-      <Form>
-      <FormGroup>
+      <Form onSubmit={handleSubmit}>
+        <FormGroup>
           <Label for="customer">
             Select the Customer of the Service ticket
           </Label>
@@ -57,7 +71,7 @@ export default function CreateTicket() {
             Description
           </Label>
           <Input
-            id="exampleEmail"
+            id="description"
             name="description"
             value={formInput.description}
             placeholder="Describe your issue"
@@ -72,10 +86,19 @@ export default function CreateTicket() {
           <Input
             id="emergency"
             name="emergency"
-            value={formInput.emergency}
+            value={formInput.emergency ? 'true' : 'false'}
             type="select"
-            onChange={handleChange}
+            onChange={(e) => {
+              const { name, value } = e.target;
+              setFormInput((prevState) => ({
+                ...prevState,
+                [name]: value === 'true',
+              }));
+            }}
           >
+            <option value="">
+              Yes or No?
+            </option>
             <option value={true}>
               Yes
             </option>
@@ -99,6 +122,7 @@ export default function CreateTicket() {
             {optionsEmployees}
           </Input>
         </FormGroup>
+        <Button type="submit">Submit</Button>
       </Form>
     </>
   );
