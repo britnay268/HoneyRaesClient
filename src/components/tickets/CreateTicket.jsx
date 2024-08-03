@@ -10,7 +10,7 @@ const initialState = {
   employeeId: 0,
   customerId: 0,
   description: '',
-  emergency: false,
+  emergency: '',
   dateCompleted: null,
 }
 
@@ -48,6 +48,7 @@ export default function CreateTicket() {
   const optionsEmployees = employees.map((e) => (
     <option key={e.id} value={e.id}>{e.name}</option>
   ));
+
   return (
     <>
       <Form onSubmit={handleSubmit}>
@@ -61,6 +62,7 @@ export default function CreateTicket() {
             id="select"
             value={formInput.customerId}
             onChange={handleChange}
+            required
           >
             <option value="">Select a customer</option>
             {optionsCustomers}
@@ -77,6 +79,7 @@ export default function CreateTicket() {
             placeholder="Describe your issue"
             type="textarea"
             onChange={handleChange}
+            required
           />
         </FormGroup>
         <FormGroup>
@@ -86,7 +89,7 @@ export default function CreateTicket() {
           <Input
             id="emergency"
             name="emergency"
-            value={formInput.emergency ? 'true' : 'false'}
+            value={formInput.emergency}
             type="select"
             onChange={(e) => {
               const { name, value } = e.target;
@@ -95,6 +98,7 @@ export default function CreateTicket() {
                 [name]: value === 'true',
               }));
             }}
+            required
           >
             <option value="">
               Yes or No?

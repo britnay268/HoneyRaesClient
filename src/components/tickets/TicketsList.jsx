@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { Table } from "reactstrap";
-import { deleteServiceTicket, getServiceTickets } from "../../data/serviceTicketsData";
+import { Button, Table } from "reactstrap";
+import { completedTicket, deleteServiceTicket, getServiceTickets } from "../../data/serviceTicketsData";
 import { Link } from "react-router-dom";
 
 export default function TicketsList() {
@@ -14,9 +14,13 @@ export default function TicketsList() {
     }
   };
 
+  const completeTheTicket = (id) => {
+      completedTicket(id);
+  };
+
   useEffect(() => {
     getServiceTickets().then(setTickets);
-  }, []);
+  }, [tickets]);
 
   return (
     <Table>
@@ -42,6 +46,13 @@ export default function TicketsList() {
             <td>
             <Link onClick={() => deleteTicket(t.id)}>Delete</Link>
             </td>
+            {
+              t.employeeId != null && t.dateCompleted == null 
+              ? <td>
+                  <Button onClick={() => completeTheTicket(t.id)}>Complete</Button>
+                </td>
+              : ''
+            }
           </tr>
         ))}
       </tbody>
