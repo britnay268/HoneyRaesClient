@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { Table } from "reactstrap";
+import { Link, useParams } from "react-router-dom";
+import { Button, Table } from "reactstrap";
 import { getServiceTicket } from "../../data/serviceTicketsData";
-import { Button } from "reactstrap";
 
 export default function TicketDetails() {
   const { id } = useParams();
@@ -46,7 +45,9 @@ export default function TicketDetails() {
       </Table>
       {
         ticket.employeeId == null 
-        ? <Button>Assign</Button>
+        ? <Button color="primary" outline>
+          <Link to={`/tickets/${id}/assign`}>Assign</Link>
+        </Button>
         : ''
       }
     </>
